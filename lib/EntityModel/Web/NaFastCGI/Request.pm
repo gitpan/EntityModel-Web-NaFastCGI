@@ -1,6 +1,6 @@
 package EntityModel::Web::NaFastCGI::Request;
 BEGIN {
-  $EntityModel::Web::NaFastCGI::Request::VERSION = '0.001';
+  $EntityModel::Web::NaFastCGI::Request::VERSION = '0.002';
 }
 use EntityModel::Class {
 	_isa		=> [qw(EntityModel::Web::Request)],
@@ -12,7 +12,7 @@ EntityModel::Web::NaFastCGI::Request - abstraction for incoming HTTP request
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 

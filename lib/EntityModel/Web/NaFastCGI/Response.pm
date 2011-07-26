@@ -1,10 +1,10 @@
 package EntityModel::Web::NaFastCGI::Response;
 BEGIN {
-  $EntityModel::Web::NaFastCGI::Response::VERSION = '0.001';
+  $EntityModel::Web::NaFastCGI::Response::VERSION = '0.002';
 }
 use EntityModel::Class {
 	_isa	=> [qw(EntityModel::Web::Response)],
-	fcgi	=> 'EntityModel::Web::FastCGI',
+	fcgi	=> 'EntityModel::Web::NaFastCGI',
 	context	=> 'EntityModel::Web::Context',
 };
 
@@ -14,7 +14,7 @@ EntityModel::Web::Response - handle response to web request
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -33,6 +33,14 @@ sub new {
 	$self->{fcgi} = $r;
 	return $self;
 }
+
+=head2 process
+
+Do the processing.
+
+FIXME 200 response only at the moment, clearly this isn't good enough.
+
+=cut
 
 sub process {
 	my $self = shift;

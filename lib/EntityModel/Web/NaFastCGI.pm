@@ -4,7 +4,7 @@ use EntityModel::Class {
 	_isa	=> [qw(Net::Async::FastCGI)],
 };
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 =head1 NAME
 
@@ -12,7 +12,7 @@ EntityModel::Web::NaFastCGI - website support for L<EntityModel>
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -66,15 +66,10 @@ sub configure {
 	}
 
 	foreach (qw(show_timing context_args on_request)) {
-		if(my $v = delete $args{$_}) {
+		if(defined(my $v = delete $args{$_})) {
 			$self->{$_} = $v;
 		}
 	}
-
-# TODO Workaround for ->on_request
-	$self->{on_request} ||= sub {
-		shift->on_request(@_)
-	};
 
 	return $self->SUPER::configure(%args);
 }
@@ -106,6 +101,12 @@ sub on_request {
 # Do the page lookup immediately
 	$ctx->find_page_and_data($self->{web});
 	$check->mark('Find page') if $self->{show_timing};
+
+	unless($ctx->page) {
+		$self->maybe_invoke_event('on_page_not_found', $self, $ctx);
+		return;
+	}
+
 	$self->maybe_invoke_event('on_page', $self, $ctx);
 	$check->mark('Page callback') if $self->{show_timing};
 
@@ -130,6 +131,12 @@ sub on_request {
 			printf("200 OK %s\n", $req->path);
 		});
 	}));
+	return;
+}
+
+sub on_page_not_found {
+	my $self = shift;
+	warn "No page was found\n";
 	return;
 }
 

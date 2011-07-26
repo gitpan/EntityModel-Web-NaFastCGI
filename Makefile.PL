@@ -2,9 +2,9 @@
 use strict;
 use warnings;
 
-BEGIN { require 5.010; }
+use 5.010;
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
@@ -13,7 +13,7 @@ my %WriteMakefileArgs = (
   'AUTHOR' => 'Tom Molesworth <cpan@entitymodel.com>',
   'BUILD_REQUIRES' => {},
   'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+    'ExtUtils::MakeMaker' => '6.30'
   },
   'DISTNAME' => 'EntityModel-Web-NaFastCGI',
   'EXE_FILES' => [
@@ -22,11 +22,11 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'EntityModel::Web::NaFastCGI',
   'PREREQ_PM' => {
-    'EntityModel::Web' => '0.001',
-    'Net::Async::FastCGI' => '0.22',
+    'EntityModel::Web' => '0.002',
+    'Net::Async::FastCGI' => '0.23',
     'Time::Checkpoint::Sequential' => '0.002'
   },
-  'VERSION' => '0.001',
+  'VERSION' => '0.002',
   'test' => {
     'TESTS' => 't/*.t'
   }
